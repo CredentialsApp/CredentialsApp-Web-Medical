@@ -1,1 +1,75 @@
-<hello></hello>
+<!-- Default form register -->
+<form class="text-center border border-light p-5">
+  <p class="h4 mb-4">Register</p>
+
+  <div class="form-row mb-4">
+    <!-- Doctor name -->
+    <input
+      type="text"
+      id="defaultRegisterFormDoctorName"
+      class="form-control"
+      placeholder="Doctor Name"
+      autocomplete="false"
+      name="doctorName"
+      [(ngModel)]="doctorName"
+    />
+  </div>
+
+  <!-- ClinicName -->
+  <input
+    type="text"
+    id="defaultRegisterFormClinicName"
+    class="form-control mb-4"
+    placeholder="Clinic Name"
+    autocomplete="false"
+    name="clinicName"
+    [(ngModel)]="clinicName"
+  />
+
+  <!-- Password -->
+  <input
+    type="password"
+    id="defaultRegisterFormPassword"
+    class="form-control"
+    placeholder="Password"
+    aria-describedby="defaultRegisterFormPassword"
+    autocomplete="false"
+    name="password"
+    [(ngModel)]="password"
+  />
+  <small id="defaultRegisterFormPassword" class="form-text text-muted mb-4">
+  </small>
+
+  <!-- RE-Password -->
+  <input
+    type="password"
+    id="defaultRegisterFormRePassword"
+    class="form-control"
+    placeholder="RE-Password"
+    aria-describedby="defaultRegisterFormRePassword"
+    autocomplete="false"
+    name="rePassword"
+    [(ngModel)]="rePassword"
+  />
+  <small id="defaultRegisterFormRePassword" class="form-text text-muted mb-4">
+  </small>
+
+  <!-- Register button -->
+  <button
+    mdbBtn
+    color="info"
+    block="true"
+    class="my-4"
+    type="submit"
+    (click)="register()"
+  >
+    Register
+  </button>
+
+  <!-- Terms of service -->
+  <p>
+    By clicking <em>Sign up</em> you agree to our
+    <a href="" target="_blank">terms of service</a>
+  </p>
+</form>
+<!-- Default form register -->
