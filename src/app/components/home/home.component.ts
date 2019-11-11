@@ -19,18 +19,21 @@ export class HomeComponent implements OnInit {
   ngOnInit() {}
 
   register(): any {
-    var model = {
-      doctorName: this.doctorName,
-      clinicName: this.clinicName,
-      password: this.password,
-      rePassword: this.rePassword
-    };
+    var doctorNameHash = CryptoJS.SHA256(this.doctorName).toString(
+      CryptoJS.enc.Hex
+    );
 
-    var cryptedDoctorName = CryptoJS.HmacSHA256(
-      model.doctorName,
-      this.secret
-    ).toString();
+    var clinicNameHash = CryptoJS.SHA256(this.clinicName).toString(
+      CryptoJS.enc.Hex
+    );
 
-    console.log(cryptedDoctorName);
+    var passwordHash = CryptoJS.SHA256(this.password).toString(
+      CryptoJS.enc.Hex
+    );
+
+    var hash =
+      doctorNameHash + "ffffffff" + clinicNameHash + "ffffffff" + passwordHash;
+
+    var privateKey = CryptoJS.SHA256(hash, this.secret).toString();
   }
 }
