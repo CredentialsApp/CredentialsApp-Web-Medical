@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { User } from "../../models/userModel";
 import * as CryptoJS from "crypto-js";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-home",
@@ -14,26 +15,36 @@ export class HomeComponent implements OnInit {
   rePassword: string;
   secret: string =
     "4107E215B2E4907348E67E4B77FA7CC0DF1897DB342316520DBA5ED9CB0E1C1B";
-  constructor() {}
+  constructor(private toastr: ToastrService) {}
 
   ngOnInit() {}
 
   register(): any {
-    var doctorNameHash = CryptoJS.SHA256(this.doctorName).toString(
-      CryptoJS.enc.Hex
-    );
+    if (this.password !== this.rePassword) {
+      this.toastr.error("Passwords do not match");
+    } else {
+      var doctorNameHash = CryptoJS.SHA256(this.doctorName).toString(
+        CryptoJS.enc.Hex
+      );
 
-    var clinicNameHash = CryptoJS.SHA256(this.clinicName).toString(
-      CryptoJS.enc.Hex
-    );
+      var clinicNameHash = CryptoJS.SHA256(this.clinicName).toString(
+        CryptoJS.enc.Hex
+      );
 
-    var passwordHash = CryptoJS.SHA256(this.password).toString(
-      CryptoJS.enc.Hex
-    );
+      var passwordHash = CryptoJS.SHA256(this.password).toString(
+        CryptoJS.enc.Hex
+      );
 
-    var hash =
-      doctorNameHash + "ffffffff" + clinicNameHash + "ffffffff" + passwordHash;
+      var hash =
+        doctorNameHash +
+        "ffffffff" +
+        clinicNameHash +
+        "ffffffff" +
+        passwordHash;
 
-    var privateKey = CryptoJS.SHA256(hash, this.secret).toString();
+      var privateKey = CryptoJS.SHA256(hash, this.secret).toString();
+
+      console.log(privateKey);
+    }
   }
 }
