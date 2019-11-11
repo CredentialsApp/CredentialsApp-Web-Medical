@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { User } from "../../models/userModel";
+import * as CryptoJS from "crypto-js";
 
 @Component({
   selector: "app-home",
@@ -11,17 +12,25 @@ export class HomeComponent implements OnInit {
   clinicName: string;
   password: string;
   rePassword: string;
+  secret: string =
+    "4107E215B2E4907348E67E4B77FA7CC0DF1897DB342316520DBA5ED9CB0E1C1B";
   constructor() {}
 
   ngOnInit() {}
 
-  register(): void {
+  register(): any {
     var model = {
       doctorName: this.doctorName,
       clinicName: this.clinicName,
       password: this.password,
       rePassword: this.rePassword
     };
-    console.log(model);
+
+    var cryptedDoctorName = CryptoJS.HmacSHA256(
+      model.doctorName,
+      this.secret
+    ).toString();
+
+    console.log(cryptedDoctorName);
   }
 }
