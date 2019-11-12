@@ -5,7 +5,7 @@ const privateSecret =
   "4107E215B2E4907348E67E4B77FA7CC0DF1897DB342316520DBA5ED9CB0E1C1B";
 const randomHash = "ffffffff";
 
-const generatePrivateKey = object => {
+const generatePublicKey = object => {
   var doctorNameHash = CryptoJS.SHA256(object.doctorName).toString(
     CryptoJS.enc.Hex
   );
@@ -32,5 +32,5 @@ const generatePrivateKey = object => {
 };
 
 module.exports = {
-  generatePrivateKey
+  generatePublicKey
 };

@@ -1,4 +1,4 @@
-const { generatePrivateKey } = require("../services/encryption.service");
+const { generatePublicKey } = require("../services/encryption.service");
 
 module.exports = app => {
   app.post("/api/encryption", (req, res, next) => {
@@ -7,8 +7,7 @@ module.exports = app => {
       clinicName: req.body.clinicName,
       password: req.body.password
     };
-
-    var result = generatePrivateKey(model);
+    var result = generatePublicKey(model);
     res.status(200).json({ result: result });
   });
 };

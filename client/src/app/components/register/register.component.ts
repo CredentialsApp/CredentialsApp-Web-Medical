@@ -1,18 +1,13 @@
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  AfterViewChecked,
-  DoCheck
-} from "@angular/core";
-import { User } from "../../models/userModel";
-import * as CryptoJS from "crypto-js";
+import { Component, OnInit, DoCheck } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
+import { AuthService } from "src/app/services/auth.service";
+import { User } from "src/app/models/userModel";
 
 @Component({
   selector: "app-home",
   templateUrl: "./register.component.html",
-  styleUrls: ["./register.component.scss"]
+  styleUrls: ["./register.component.scss"],
+  providers: [ToastrService]
 })
 export class RegisterComponent implements OnInit, DoCheck {
   doctorName: string;
@@ -20,7 +15,10 @@ export class RegisterComponent implements OnInit, DoCheck {
   password: string;
   rePassword: string;
   buttonVisible: boolean = true;
-  constructor(private toastr: ToastrService) {}
+  constructor(
+    private toastr: ToastrService,
+    private readonly authService: AuthService
+  ) {}
 
   ngOnInit() {}
 
@@ -41,7 +39,15 @@ export class RegisterComponent implements OnInit, DoCheck {
     if (this.password !== this.rePassword) {
       this.toastr.error("Passwords do not match");
     } else {
-      this.toastr.success("Private Key:");
+      var model = new User();
+      model = {
+        doctorName: this.doctorName,
+        clinicName: this.clinicName,
+        password: this.password
+      };
+      this.authService.encryption(model).subscribe(res => {
+        this.toastr.success("Registered Successful!");
+      });
     }
   }
 }
