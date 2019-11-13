@@ -5,10 +5,9 @@ import { HomeComponent } from "../components/home/home.component";
 import { RegisterComponent } from "../components/register/register.component";
 import { AuthService } from "../services/auth.service";
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: "home", component: HomeComponent },
-  { path: "register", component: RegisterComponent },
-  { path: "**", redirectTo: "home", pathMatch: "full" } // default state
+  { path: "register", component: RegisterComponent }
 ];
 
 @NgModule({
