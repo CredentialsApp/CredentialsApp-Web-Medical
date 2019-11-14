@@ -2,6 +2,7 @@ import { Component, OnInit, DoCheck } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
 import { AuthService } from "src/app/services/auth.service";
 import { User } from "src/app/models/userModel";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-home",
@@ -14,10 +15,11 @@ export class RegisterComponent implements OnInit, DoCheck {
   clinicName: string;
   password: string;
   rePassword: string;
-  buttonVisible: boolean = true;
+  buttonDisable: boolean = true;
   constructor(
     private toastr: ToastrService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit() {}
@@ -29,9 +31,9 @@ export class RegisterComponent implements OnInit, DoCheck {
       this.password &&
       this.rePassword
     ) {
-      this.buttonVisible = false;
+      this.buttonDisable = false;
     } else {
-      this.buttonVisible = true;
+      this.buttonDisable = true;
     }
   }
 
@@ -46,7 +48,8 @@ export class RegisterComponent implements OnInit, DoCheck {
         password: this.password
       };
       this.authService.encryption(model).subscribe(res => {
-        this.toastr.success("Registered Successful!");
+        this.toastr.success("Registered Succesfull!");
+        this.router.navigate(["/liveAccounts"]);
       });
     }
   }

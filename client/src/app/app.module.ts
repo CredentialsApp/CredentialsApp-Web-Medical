@@ -18,7 +18,7 @@ import { VerifyMedicalInfoComponent } from "./components/verify-medical-info/ver
 import { ReviewMyNotesComponent } from "./components/review-my-notes/review-my-notes.component";
 import { IdentifyPatientComponent } from "./components/identify-patient/identify-patient.component";
 import { UpdatesComponent } from "./components/updates/updates.component";
-import { NavbarComponent } from './components/navbar/navbar.component';
+import { NavbarComponent } from "./components/navbar/navbar.component";
 
 @NgModule({
   declarations: [
