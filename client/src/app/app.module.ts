@@ -13,13 +13,23 @@ import { AppComponent } from "./app.component";
 import { HomeComponent } from "./components/home/home.component";
 import { RegisterComponent } from "./components/register/register.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
+import { LiveAccountsComponent } from "./components/live-accounts/live-accounts.component";
+import { VerifyMedicalInfoComponent } from "./components/verify-medical-info/verify-medical-info.component";
+import { ReviewMyNotesComponent } from "./components/review-my-notes/review-my-notes.component";
+import { IdentifyPatientComponent } from "./components/identify-patient/identify-patient.component";
+import { UpdatesComponent } from "./components/updates/updates.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     RegisterComponent,
-    SidebarComponent
+    SidebarComponent,
+    LiveAccountsComponent,
+    VerifyMedicalInfoComponent,
+    ReviewMyNotesComponent,
+    IdentifyPatientComponent,
+    UpdatesComponent
   ],
   imports: [
     BrowserModule,
