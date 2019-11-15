@@ -11,7 +11,7 @@
         placeholder="Doctor Name"
         autocomplete="false"
         name="doctorName"
-        [(ngModel)]="doctorName"
+        [(ngModel)]="user.doctorName"
       />
 
       <small
@@ -28,7 +28,7 @@
         placeholder="Clinic Name"
         autocomplete="false"
         name="clinicName"
-        [(ngModel)]="clinicName"
+        [(ngModel)]="user.clinicName"
       />
 
       <!-- Password -->
@@ -40,7 +40,7 @@
         aria-describedby="defaultRegisterFormPassword"
         autocomplete="false"
         name="password"
-        [(ngModel)]="password"
+        [(ngModel)]="user.password"
       />
       <small id="defaultRegisterFormPassword" class="form-text text-muted mb-4">
       </small>
@@ -54,7 +54,7 @@
         aria-describedby="defaultRegisterFormRePassword"
         autocomplete="false"
         name="rePassword"
-        [(ngModel)]="rePassword"
+        [(ngModel)]="user.rePassword"
       />
       <small
         id="defaultRegisterFormRePassword"

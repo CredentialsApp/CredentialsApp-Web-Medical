@@ -11,10 +11,7 @@ import { Router } from "@angular/router";
   providers: [ToastrService]
 })
 export class RegisterComponent implements OnInit, DoCheck {
-  doctorName: string;
-  clinicName: string;
-  password: string;
-  rePassword: string;
+  user = new User();
   buttonDisable: boolean = true;
   constructor(
     private toastr: ToastrService,
@@ -26,10 +23,10 @@ export class RegisterComponent implements OnInit, DoCheck {
 
   ngDoCheck() {
     if (
-      this.doctorName &&
-      this.clinicName &&
-      this.password &&
-      this.rePassword
+      this.user.doctorName &&
+      this.user.clinicName &&
+      this.user.password &&
+      this.user.rePassword
     ) {
       this.buttonDisable = false;
     } else {
@@ -38,16 +35,10 @@ export class RegisterComponent implements OnInit, DoCheck {
   }
 
   register(): any {
-    if (this.password !== this.rePassword) {
+    if (this.user.password !== this.user.rePassword) {
       this.toastr.error("Passwords do not match");
     } else {
-      var model = new User();
-      model = {
-        doctorName: this.doctorName,
-        clinicName: this.clinicName,
-        password: this.password
-      };
-      this.authService.encryption(model).subscribe(res => {
+      this.authService.encryption(this.user).subscribe(res => {
         this.toastr.success("Registered Succesfull!");
         this.router.navigate(["/liveAccounts"]);
       });
