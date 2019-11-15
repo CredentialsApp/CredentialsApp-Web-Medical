@@ -19,6 +19,7 @@ import { ReviewMyNotesComponent } from "./components/review-my-notes/review-my-n
 import { IdentifyPatientComponent } from "./components/identify-patient/identify-patient.component";
 import { UpdatesComponent } from "./components/updates/updates.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
+import { AccountDetailsComponent } from "./components/account-details/account-details.component";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
     ReviewMyNotesComponent,
     IdentifyPatientComponent,
     UpdatesComponent,
-    NavbarComponent
+    NavbarComponent,
+    AccountDetailsComponent
   ],
   imports: [
     BrowserModule,

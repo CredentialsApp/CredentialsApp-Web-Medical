@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Patient } from "../../models/patientModel";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-live-accounts",
@@ -8,7 +9,7 @@ import { Patient } from "../../models/patientModel";
 })
 export class LiveAccountsComponent implements OnInit {
   patients: any[];
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.patients = [
@@ -22,5 +23,11 @@ export class LiveAccountsComponent implements OnInit {
       { name: "#patient8" },
       { name: "#patient9" }
     ];
+  }
+
+  route(accountData): any {
+    this.router.navigate(["/accountDetails"], {
+      state: { data: { accountData } }
+    });
   }
 }

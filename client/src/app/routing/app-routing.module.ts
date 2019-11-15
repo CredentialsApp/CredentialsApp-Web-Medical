@@ -8,6 +8,7 @@ import { VerifyMedicalInfoComponent } from "../components/verify-medical-info/ve
 import { IdentifyPatientComponent } from "../components/identify-patient/identify-patient.component";
 import { ReviewMyNotesComponent } from "../components/review-my-notes/review-my-notes.component";
 import { UpdatesComponent } from "../components/updates/updates.component";
+import { AccountDetailsComponent } from "../components/account-details/account-details.component";
 import { AuthService } from "../services/auth.service";
 
 export const routes: Routes = [
@@ -18,6 +19,7 @@ export const routes: Routes = [
   { path: "reviewMyNotes", component: ReviewMyNotesComponent },
   { path: "identifyPatient", component: IdentifyPatientComponent },
   { path: "updates", component: UpdatesComponent },
+  { path: "accountDetails", component: AccountDetailsComponent },
   {
     path: "**",
     redirectTo: "home",

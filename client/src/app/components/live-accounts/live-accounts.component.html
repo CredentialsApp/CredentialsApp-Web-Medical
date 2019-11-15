@@ -1,5 +1,12 @@
 <ul *ngFor="let patient of patients">
-  <button mdbBtn type="button" color="default" block="true" mdbWavesEffect>
+  <button
+    mdbBtn
+    type="button"
+    color="default"
+    block="true"
+    (click)="route(patient)"
+    mdbWavesEffect
+  >
     {{ patient.name }}
   </button>
 </ul>
