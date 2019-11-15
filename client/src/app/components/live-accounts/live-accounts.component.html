@@ -1,1 +1,5 @@
-<p>live-accounts works!</p>
+<ul *ngFor="let patient of patients">
+  <button mdbBtn type="button" color="default" block="true" mdbWavesEffect>
+    {{ patient.name }}
+  </button>
+</ul>
