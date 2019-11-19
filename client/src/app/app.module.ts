@@ -7,6 +7,12 @@ import { FormsModule } from "@angular/forms";
 import { ToastrModule } from "ngx-toastr";
 import { CommonModule } from "@angular/common";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import {
+  MatFormFieldModule,
+  MatDialogModule,
+  MatInputModule,
+  MatButtonModule
+} from "@angular/material";
 
 import { AppRoutingModule } from "./routing/app-routing.module";
 import { AppComponent } from "./app.component";
@@ -20,7 +26,7 @@ import { IdentifyPatientComponent } from "./components/identify-patient/identify
 import { UpdatesComponent } from "./components/updates/updates.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { AccountDetailsComponent } from "./components/account-details/account-details.component";
-import { EditPreviewComponent } from './modals/edit-preview/edit-preview.component';
+import { EditPreviewComponent } from "./modals/edit-preview/edit-preview.component";
 
 @NgModule({
   declarations: [
@@ -54,8 +60,13 @@ import { EditPreviewComponent } from './modals/edit-preview/edit-preview.compone
       extendedTimeOut: 5000
     }),
     CommonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatInputModule,
+    MatButtonModule
   ],
+  entryComponents: [EditPreviewComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

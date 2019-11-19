@@ -13,6 +13,7 @@
           <th>
             Preview
           </th>
+          <th></th>
         </thead>
         <tbody>
           <tr *ngFor="let data of dataList">
@@ -22,6 +23,20 @@
             <td>{{ data.patient }}</td>
             <td>{{ data.added }}</td>
             <td>{{ data.preview }}</td>
+            <td>
+              <div>
+                <button
+                  type="button"
+                  mdbBtn
+                  color="info"
+                  (click)="editPreview(data.preview)"
+                  mdbWavesEffect
+                >
+                  <i class="nc-icon nc-ruler-pencil"></i>
+                  Edit
+                </button>
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
