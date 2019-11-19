@@ -1,1 +1,30 @@
-<p>review-my-notes works!</p>
+<div class="col-md-12">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead class=" text-primary">
+          <th></th>
+          <th>
+            Patient
+          </th>
+          <th>
+            Added
+          </th>
+          <th>
+            Preview
+          </th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of dataList">
+            <td style="width:65px;">
+              <img src="{{ data.img }}" />
+            </td>
+            <td>{{ data.patient }}</td>
+            <td>{{ data.added }}</td>
+            <td>{{ data.preview }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

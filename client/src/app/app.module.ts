@@ -20,6 +20,7 @@ import { IdentifyPatientComponent } from "./components/identify-patient/identify
 import { UpdatesComponent } from "./components/updates/updates.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { AccountDetailsComponent } from "./components/account-details/account-details.component";
+import { EditPreviewComponent } from './modals/edit-preview/edit-preview.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { AccountDetailsComponent } from "./components/account-details/account-de
     IdentifyPatientComponent,
     UpdatesComponent,
     NavbarComponent,
-    AccountDetailsComponent
+    AccountDetailsComponent,
+    EditPreviewComponent
   ],
   imports: [
     BrowserModule,
