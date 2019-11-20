@@ -7,6 +7,7 @@ import { FormsModule } from "@angular/forms";
 import { ToastrModule } from "ngx-toastr";
 import { CommonModule } from "@angular/common";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { EllipsisPipe } from "../app/pipes/ellipsis.pipe";
 import {
   MatFormFieldModule,
   MatDialogModule,
@@ -41,7 +42,8 @@ import { EditPreviewComponent } from "./modals/edit-preview/edit-preview.compone
     UpdatesComponent,
     NavbarComponent,
     AccountDetailsComponent,
-    EditPreviewComponent
+    EditPreviewComponent,
+    EllipsisPipe
   ],
   imports: [
     BrowserModule,

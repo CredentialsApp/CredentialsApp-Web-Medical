@@ -22,7 +22,7 @@
             </td>
             <td>{{ data.patient }}</td>
             <td>{{ data.added }}</td>
-            <td>{{ data.note }}</td>
+            <td>{{ data.note | ellipsis: 50 }}</td>
             <td>
               <div>
                 <button
