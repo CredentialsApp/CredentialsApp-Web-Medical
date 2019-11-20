@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Patient } from "../../models/patientModel";
-import { Router } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
+import { PatientService } from "../../services/patient.service";
 
 @Component({
   selector: "app-live-accounts",
@@ -8,26 +9,22 @@ import { Router } from "@angular/router";
   styleUrls: ["./live-accounts.component.scss"]
 })
 export class LiveAccountsComponent implements OnInit {
-  patients: any[];
-  constructor(private router: Router) {}
+  private patients: Array<Patient>;
+  constructor(private router: Router, private patientService: PatientService) {}
 
   ngOnInit() {
-    this.patients = [
-      { name: "#patient1" },
-      { name: "#patient2" },
-      { name: "#patient3" },
-      { name: "#patient4" },
-      { name: "#patient5" },
-      { name: "#patient6" },
-      { name: "#patient7" },
-      { name: "#patient8" },
-      { name: "#patient9" }
-    ];
+    this.register();
   }
 
   route(accountData): any {
     this.router.navigate(["/accountDetails"], {
       state: { data: { accountData } }
+    });
+  }
+
+  register(): any {
+    this.patientService.getPatientList().subscribe(res => {
+      this.patients = res;
     });
   }
 }
