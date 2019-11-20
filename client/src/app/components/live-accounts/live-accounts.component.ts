@@ -17,7 +17,6 @@ export class LiveAccountsComponent implements OnInit {
   }
 
   route(accountData): any {
-    console.log(accountData);
     this.router.navigate(["/accountDetails"], {
       state: { data: { accountData } }
     });

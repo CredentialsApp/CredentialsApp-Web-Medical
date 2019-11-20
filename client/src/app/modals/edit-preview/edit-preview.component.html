@@ -3,7 +3,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <h4 class="modal-title w-100" id="myModalLabel">
-        {{ fromPage }}
+        {{ noteData.note }}
       </h4>
     </div>
     <textarea
@@ -11,8 +11,8 @@
       id="review"
       rows="4"
       autocomplete="false"
-      name="review"
-      [(ngModel)]="review"
+      name="note"
+      [(ngModel)]="noteData.note"
     >
     </textarea>
     <div class="modal-footer">
@@ -31,6 +31,7 @@
         mdbBtn
         color="primary"
         class="relative waves-light"
+        (click)="updateNote()"
         mdbWavesEffect
       >
         Save changes

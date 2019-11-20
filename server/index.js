@@ -2,6 +2,7 @@ const express = require("express"),
 	bodyParser = require("body-parser"),
 	authController = require("./controllers/auth.controller"),
 	patientRouteController = require("./controllers/patient.route.controller"),
+	noteRouteController = require("./controllers/note.route.controller"),
 	dbConfig = require("./config/database_config.js");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -15,7 +16,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 authController(app);
 patientRouteController(app);
-
+noteRouteController(app);
 mongoose
 	.connect(dbConfig.url, {
 		useNewUrlParser: true

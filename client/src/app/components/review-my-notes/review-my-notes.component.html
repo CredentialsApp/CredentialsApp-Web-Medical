@@ -22,14 +22,14 @@
             </td>
             <td>{{ data.patient }}</td>
             <td>{{ data.added }}</td>
-            <td>{{ data.preview }}</td>
+            <td>{{ data.note }}</td>
             <td>
               <div>
                 <button
                   type="button"
                   mdbBtn
                   color="info"
-                  (click)="editPreview(data.preview)"
+                  (click)="editPreview(data)"
                   mdbWavesEffect
                 >
                   <i class="nc-icon nc-ruler-pencil"></i>
