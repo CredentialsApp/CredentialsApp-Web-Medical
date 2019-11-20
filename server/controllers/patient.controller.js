@@ -3,7 +3,9 @@ const Patient = require("../models/patient.model");
 exports.create = (req, res) => {
 	// Create a Patient
 	const patient = new Patient({
-		name: req.body.name
+		name: req.body.name,
+		location: req.body.location,
+		photo: req.body.photo
 	});
 
 	// Save Patient in the database

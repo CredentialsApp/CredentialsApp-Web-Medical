@@ -1,12 +1,41 @@
-<ul *ngFor="let patient of patients">
-  <button
-    mdbBtn
-    type="button"
-    color="default"
-    block="true"
-    (click)="route(patient)"
-    mdbWavesEffect
-  >
-    {{ patient.name }}
-  </button>
-</ul>
+<div class="col-md-12">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead class=" text-primary">
+          <th style="width: 5%;"></th>
+          <th style="width: 40%;">
+            Name
+          </th>
+          <th style="width: 40%;">
+            Location
+          </th>
+          <th style="width: 15%;"></th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of patients">
+            <td>
+              <img src="{{ data.photo }}" />
+            </td>
+            <td>{{ data.name }}</td>
+            <td>{{ data.location }}</td>
+            <td>
+              <div>
+                <button
+                  type="button"
+                  mdbBtn
+                  color="info"
+                  (click)="route(data.name)"
+                  mdbWavesEffect
+                >
+                  <i class="nc-icon nc-minimal-right"></i>
+                  See more
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

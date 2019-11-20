@@ -13,16 +13,17 @@ export class LiveAccountsComponent implements OnInit {
   constructor(private router: Router, private patientService: PatientService) {}
 
   ngOnInit() {
-    this.register();
+    this.getPatientList();
   }
 
   route(accountData): any {
+    console.log(accountData);
     this.router.navigate(["/accountDetails"], {
       state: { data: { accountData } }
     });
   }
 
-  register(): any {
+  getPatientList(): any {
     this.patientService.getPatientList().subscribe(res => {
       this.patients = res;
     });
