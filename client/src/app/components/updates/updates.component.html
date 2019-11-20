@@ -1,1 +1,26 @@
-<p>updates works!</p>
+<div class="col-md-12">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead class=" text-primary">
+          <th>
+            Doctor Name
+          </th>
+          <th>
+            Patient Name
+          </th>
+          <th>Log Detail</th>
+          <th>Date</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let log of logs">
+            <td>{{ log.doctorName }}</td>
+            <td>{{ log.patientName }}</td>
+            <td>{{ log.action }}</td>
+            <td>{{ log.createdAt | date: "MM/dd/yy hh:dd" }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
