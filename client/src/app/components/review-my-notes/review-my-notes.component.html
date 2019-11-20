@@ -18,10 +18,10 @@
         <tbody>
           <tr *ngFor="let data of dataList">
             <td style="width:65px;">
-              <img src="{{ data.img }}" />
+              <img src="{{ data.patient.photo }}" />
             </td>
-            <td>{{ data.patient }}</td>
-            <td>{{ data.added }}</td>
+            <td>{{ data.patient.name }}</td>
+            <td>21 Nov 2019</td>
             <td>{{ data.note | ellipsis: 50 }}</td>
             <td>
               <div>
