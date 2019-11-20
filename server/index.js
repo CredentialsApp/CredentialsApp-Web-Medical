@@ -1,6 +1,7 @@
 const express = require("express"),
 	bodyParser = require("body-parser"),
 	authController = require("./controllers/auth.controller"),
+	patientRouteController = require("./controllers/patient.route.controller"),
 	dbConfig = require("./config/database_config.js");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -13,6 +14,7 @@ app.options("*", cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 authController(app);
+patientRouteController(app);
 
 mongoose
 	.connect(dbConfig.url, {
