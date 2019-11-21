@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { User } from "../models/userModel";
 import * as CryptoJS from "crypto-js";
 import * as secp256k1 from "secp256k1";
-import * as crypto from "crypto";
+import { Buffer } from "buffer";
 
 @Injectable({
   providedIn: "root"
@@ -29,11 +29,14 @@ export class AuthService {
     var privateKeyHash =
       doctorNameHash + "ffffffff" + clinicNameHash + "ffffffff" + passwordHash;
 
-    var privateKey = crypto
-      .createHmac("sha256", this.privateSecret)
-      .update(privateKeyHash)
-      .digest();
-    var publicKey = secp256k1.publicKeyCreate(privateKey).toString("base64");
+    var privateKey = CryptoJS.HmacSHA256(
+      privateKeyHash,
+      this.privateSecret
+    ).toString();
+
+    var publicKey = secp256k1
+      .publicKeyCreate(Buffer.alloc(32, privateKey, "base64"))
+      .toString("base64");
 
     return publicKey;
   }
