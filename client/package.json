@@ -23,6 +23,7 @@
     "@angular/router": "^8.2.14",
     "@ng-bootstrap/ng-bootstrap": "^5.1.4",
     "@types/crypto-js": "^3.1.43",
+    "@zxing/ngx-scanner": "^2.0.1",
     "angular-bootstrap-md": "^8.6.0",
     "bootstrap": "^4.3.1",
     "chart.js": "^2.9.3",

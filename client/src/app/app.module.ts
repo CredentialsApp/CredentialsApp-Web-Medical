@@ -30,6 +30,7 @@ import { AccountDetailsComponent } from "./components/account-details/account-de
 import { EditPreviewComponent } from "./modals/edit-preview/edit-preview.component";
 import { LoginComponent } from "./components/login/login.component";
 import { NgxQRCodeModule } from "ngx-qrcode2";
+import { ZXingScannerModule } from "@zxing/ngx-scanner";
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { NgxQRCodeModule } from "ngx-qrcode2";
     FormsModule,
     NgbModule,
     NgxQRCodeModule,
+    ZXingScannerModule,
     ToastrModule.forRoot({
       closeButton: false,
       newestOnTop: false,
