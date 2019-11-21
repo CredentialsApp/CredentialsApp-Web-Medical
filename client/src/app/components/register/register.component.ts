@@ -43,7 +43,9 @@ export class RegisterComponent implements OnInit, DoCheck {
       var registeredUser = this.cryptologyService.encryption(this.user);
       this.authService.insertUser(registeredUser).subscribe(res => {
         this.toastr.success("Registered Succesfull!");
-        this.router.navigate(["/liveAccounts"]);
+        this.router.navigate(["/login"], {
+          state: { data: { registeredUser } }
+        });
         console.log("success log");
       });
     }

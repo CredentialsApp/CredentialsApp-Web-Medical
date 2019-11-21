@@ -10,7 +10,6 @@ export class AccountDetailsComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    console.log(history.state.data.accountData);
     this.accountDetail = history.state.data.accountData;
   }
 }

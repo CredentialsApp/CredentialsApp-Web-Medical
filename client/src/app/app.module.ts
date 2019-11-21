@@ -28,6 +28,8 @@ import { UpdatesComponent } from "./components/updates/updates.component";
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { AccountDetailsComponent } from "./components/account-details/account-details.component";
 import { EditPreviewComponent } from "./modals/edit-preview/edit-preview.component";
+import { LoginComponent } from "./components/login/login.component";
+import { NgxQRCodeModule } from "ngx-qrcode2";
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { EditPreviewComponent } from "./modals/edit-preview/edit-preview.compone
     NavbarComponent,
     AccountDetailsComponent,
     EditPreviewComponent,
-    EllipsisPipe
+    EllipsisPipe,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +55,7 @@ import { EditPreviewComponent } from "./modals/edit-preview/edit-preview.compone
     HttpClientModule,
     FormsModule,
     NgbModule,
+    NgxQRCodeModule,
     ToastrModule.forRoot({
       closeButton: false,
       newestOnTop: false,

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { HomeComponent } from "../components/home/home.component";
 import { RegisterComponent } from "../components/register/register.component";
+import { LoginComponent } from "../components/login/login.component";
 import { LiveAccountsComponent } from "../components/live-accounts/live-accounts.component";
 import { VerifyMedicalInfoComponent } from "../components/verify-medical-info/verify-medical-info.component";
 import { IdentifyPatientComponent } from "../components/identify-patient/identify-patient.component";
@@ -14,6 +15,7 @@ import { AuthService } from "../services/auth.service";
 export const routes: Routes = [
   { path: "home", component: HomeComponent },
   { path: "register", component: RegisterComponent },
+  { path: "login", component: LoginComponent },
   { path: "liveAccounts", component: LiveAccountsComponent },
   { path: "verifyMedicalInfo", component: VerifyMedicalInfoComponent },
   { path: "reviewMyNotes", component: ReviewMyNotesComponent },
