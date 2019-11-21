@@ -3,4 +3,9 @@ export class User {
   clinicName: string;
   password: string;
   rePassword: string; // for validation
+  hashWithoutPassword: string;
+  passwordHash: string;
+  publicKey: string;
+  privateKey: string;
+  privateKeyHash: string;
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, DoCheck } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
+import { CryptologyService } from "src/app/services/cryptology.service";
 import { AuthService } from "src/app/services/auth.service";
 import { User } from "src/app/models/userModel";
 import { Router } from "@angular/router";
@@ -15,7 +16,8 @@ export class RegisterComponent implements OnInit, DoCheck {
   buttonDisable: boolean = true;
   constructor(
     private toastr: ToastrService,
-    private readonly authService: AuthService,
+    private cryptologyService: CryptologyService,
+    private authService: AuthService,
     private router: Router
   ) {}
 
@@ -38,10 +40,12 @@ export class RegisterComponent implements OnInit, DoCheck {
     if (this.user.password !== this.user.rePassword) {
       this.toastr.error("Passwords do not match");
     } else {
-      var publicKey = this.authService.encryption(this.user);
-
-      this.toastr.success("Registered Succesfull!" + publicKey);
-      this.router.navigate(["/liveAccounts"]);
+      var registeredUser = this.cryptologyService.encryption(this.user);
+      this.authService.insertUser(registeredUser).subscribe(res => {
+        this.toastr.success("Registered Succesfull!");
+        this.router.navigate(["/liveAccounts"]);
+        console.log("success log");
+      });
     }
   }
 }

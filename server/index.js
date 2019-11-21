@@ -4,6 +4,7 @@ const express = require("express"),
 	patientRouteController = require("./controllers/patient.route.controller"),
 	noteRouteController = require("./controllers/note.route.controller"),
 	logRouteController = require("./controllers/log.route.controller"),
+	userRouteController = require("./controllers/user.route.controller"),
 	dbConfig = require("./config/database_config.js");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -19,6 +20,7 @@ authController(app);
 patientRouteController(app);
 noteRouteController(app);
 logRouteController(app);
+userRouteController(app);
 mongoose
 	.connect(dbConfig.url, {
 		useNewUrlParser: true
