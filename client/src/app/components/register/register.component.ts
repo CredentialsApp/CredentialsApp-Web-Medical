@@ -38,10 +38,10 @@ export class RegisterComponent implements OnInit, DoCheck {
     if (this.user.password !== this.user.rePassword) {
       this.toastr.error("Passwords do not match");
     } else {
-      this.authService.encryption(this.user).subscribe(res => {
-        this.toastr.success("Registered Succesfull!");
-        this.router.navigate(["/liveAccounts"]);
-      });
+      var publicKey = this.authService.encryption(this.user);
+
+      this.toastr.success("Registered Succesfull!" + publicKey);
+      this.router.navigate(["/liveAccounts"]);
     }
   }
 }
