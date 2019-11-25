@@ -29,8 +29,10 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
 import { AccountDetailsComponent } from "./components/account-details/account-details.component";
 import { EditPreviewComponent } from "./modals/edit-preview/edit-preview.component";
 import { LoginComponent } from "./components/login/login.component";
-import { NgxQRCodeModule } from "ngx-qrcode2";
-import { ZXingScannerModule } from "@zxing/ngx-scanner";
+// import { NgxQRCodeModule } from "ngx-qrcode2";
+// import { ZXingScannerModule } from "@zxing/ngx-scanner";
+import { WebBluetoothModule } from "@manekinekko/angular-web-bluetooth";
+import { BatteryLevelComponent } from './components/battery-level/battery-level.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { ZXingScannerModule } from "@zxing/ngx-scanner";
     AccountDetailsComponent,
     EditPreviewComponent,
     EllipsisPipe,
-    LoginComponent
+    LoginComponent,
+    BatteryLevelComponent
   ],
   imports: [
     BrowserModule,
@@ -56,8 +59,9 @@ import { ZXingScannerModule } from "@zxing/ngx-scanner";
     HttpClientModule,
     FormsModule,
     NgbModule,
-    NgxQRCodeModule,
-    ZXingScannerModule,
+    WebBluetoothModule.forRoot({
+      enableTracing: true // or false, this will enable logs in the browser's console
+    }),
     ToastrModule.forRoot({
       closeButton: false,
       newestOnTop: false,

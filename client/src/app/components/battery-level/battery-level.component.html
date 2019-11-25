@@ -1,0 +1,6 @@
+<button *ngIf="!(device | async)" (click)="requestValue()">
+  Connect
+</button>
+<button *ngIf="device | async" (click)="disconnect()">
+  Disconnect
+</button>
