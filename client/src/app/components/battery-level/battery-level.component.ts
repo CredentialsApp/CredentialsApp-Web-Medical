@@ -29,21 +29,19 @@ const PROVIDERS = [
 })
 export class BatteryLevelComponent implements OnInit {
   value = null;
-  mode = "determinate";
-  color = "primary";
   valuesSubscription: Subscription;
   streamSubscription: Subscription;
   deviceSubscription: Subscription;
 
-  get device() {
+  getDevice() {
     return this.service.getDevice();
   }
 
   constructor(public service: BluetoothService) {
     service.config({
       decoder: (value: DataView) => value.getInt8(0),
-      service: "battery_service",
-      characteristic: "battery_level"
+      service: this.getCanonicalUUID(0x180F),
+      characteristic: this.getCanonicalUUID(0x2A19)
     });
   }
 
@@ -56,14 +54,10 @@ export class BatteryLevelComponent implements OnInit {
   getDeviceStatus() {
     this.deviceSubscription = this.service.getDevice().subscribe(device => {
       if (device) {
-        this.color = "warn";
-        this.mode = "indeterminate";
         this.value = null;
       } else {
         // device not connected or disconnected
         this.value = null;
-        this.mode = "determinate";
-        this.color = "primary";
       }
     }, this.hasError.bind(this));
   }
@@ -77,7 +71,6 @@ export class BatteryLevelComponent implements OnInit {
   updateValue(value: number) {
     console.log("Reading battery level %d", value);
     this.value = value;
-    this.mode = "determinate";
   }
 
   disconnect() {
@@ -88,9 +81,26 @@ export class BatteryLevelComponent implements OnInit {
 
   hasError(error: string) {}
 
+  getCanonicalUUID(uuid: string | number): string {
+    if (typeof uuid === "number") uuid = uuid.toString(16);
+    uuid = uuid.toLowerCase();
+    if (uuid.length <= 8) uuid = ("00000000" + uuid).slice(-8) + "-0000-1000-8000-00805f9b34fb";
+    if (uuid.length === 32) uuid = uuid.match(/^([0-9a-f]{8})([0-9a-f]{4})([0-9a-f]{4})([0-9a-f]{4})([0-9a-f]{12})$/).splice(1).join("-");
+    return uuid;
+  }
+
   ngOnDestroy() {
-    this.valuesSubscription.unsubscribe();
-    this.deviceSubscription.unsubscribe();
-    this.streamSubscription.unsubscribe();
+    if(this.valuesSubscription){
+      this.valuesSubscription.unsubscribe();
+    }
+
+    if(this.deviceSubscription){
+      this.deviceSubscription.unsubscribe();
+    }
+
+    if(this.streamSubscription){
+      this.streamSubscription.unsubscribe();
+    }
+
   }
 }

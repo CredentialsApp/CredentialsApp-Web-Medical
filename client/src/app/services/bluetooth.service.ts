@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { map } from "rxjs/operators";
+import { map,mergeMap } from "rxjs/operators";
 import {
   BluetoothCore,
   BrowserWebBluetooth,
@@ -48,10 +48,35 @@ export class BluetoothService {
   }
 
   value() {
-    return this.ble.value$({
-      service: this._config.service,
-      characteristic: this._config.characteristic
-    });
+    console.log('Getting Battery level...');
+
+    return this.ble
+
+        // 1) call the discover method will trigger the discovery process (by the browser)
+        .discover$({
+          acceptAllDevices: true,
+          optionalServices: [this._config.service]
+        })
+        .pipe(
+
+          // 2) get that service
+          mergeMap((gatt: BluetoothRemoteGATTServer) => {
+            return this.ble.getPrimaryService$(gatt, this._config.service);
+          }),
+
+          // 3) get a specific characteristic on that service
+          mergeMap((primaryService: BluetoothRemoteGATTService) => {
+            return this.ble.getCharacteristic$(primaryService, this._config.characteristic);
+          }),
+
+          // 4) ask for the value of that characteristic (will return a DataView)
+          mergeMap((characteristic: BluetoothRemoteGATTCharacteristic) => {
+            return this.ble.readValue$(characteristic);
+          }),
+
+          // 5) on that DataView, get the right value
+          map((value: DataView) => value.getUint8(0))
+        )
   }
 
   disconnectDevice() {
