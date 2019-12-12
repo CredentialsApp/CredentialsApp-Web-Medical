@@ -7,7 +7,6 @@ import {
   ConsoleLoggerService
 } from "@manekinekko/angular-web-bluetooth";
 
-// make sure we get a singleton instance of each service
 const PROVIDERS = [
   {
     provide: BluetoothCore,
@@ -22,12 +21,11 @@ const PROVIDERS = [
 ];
 
 @Component({
-  selector: "ble-battery-level",
-  templateUrl: "./battery-level.component.html",
-  styleUrls: ["./battery-level.component.scss"],
-  providers: PROVIDERS
+  selector: 'ble-connect',
+  templateUrl: './ble-connect.component.html',
+  styleUrls: ['./ble-connect.component.scss']
 })
-export class BatteryLevelComponent implements OnInit {
+export class BleConnectComponent implements OnInit {
   value = null;
   valuesSubscription: Subscription;
   streamSubscription: Subscription;
@@ -40,8 +38,8 @@ export class BatteryLevelComponent implements OnInit {
   constructor(public service: BluetoothService) {
     service.config({
       decoder: (value: DataView) => value.getInt8(0),
-      service: this.getCanonicalUUID(0x180F),
-      characteristic: this.getCanonicalUUID(0x2A19)
+      service: this.getCanonicalUUID(0x3131),
+      characteristic: this.getCanonicalUUID(0x9A12)
     });
   }
 
@@ -74,7 +72,7 @@ export class BatteryLevelComponent implements OnInit {
     .subscribe(null, this.hasError.bind(this));
   }
 
-  updateValue(value: number) {
+  updateValue(value: any) {
     console.log(value);
     this.value = value;
   }
@@ -109,4 +107,5 @@ export class BatteryLevelComponent implements OnInit {
     }
 
   }
+
 }

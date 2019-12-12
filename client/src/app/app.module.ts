@@ -32,7 +32,7 @@ import { LoginComponent } from "./components/login/login.component";
 // import { NgxQRCodeModule } from "ngx-qrcode2";
 // import { ZXingScannerModule } from "@zxing/ngx-scanner";
 import { WebBluetoothModule } from "@manekinekko/angular-web-bluetooth";
-import { BatteryLevelComponent } from './components/battery-level/battery-level.component';
+import { BleConnectComponent } from './components/ble-connect/ble-connect.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +50,7 @@ import { BatteryLevelComponent } from './components/battery-level/battery-level.
     EditPreviewComponent,
     EllipsisPipe,
     LoginComponent,
-    BatteryLevelComponent
+    BleConnectComponent
   ],
   imports: [
     BrowserModule,

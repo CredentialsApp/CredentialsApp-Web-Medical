@@ -122,8 +122,9 @@ export class BluetoothService {
 
           // 4) ask for the value of that characteristic (will return a DataView)
           mergeMap((characteristic: BluetoothRemoteGATTCharacteristic) => {
-            var value = Uint8Array.of(1);
-            return this.ble.writeValue$(characteristic,value);
+            var value = new TextEncoder().encode("Selam berk");
+            console.log(value);
+            return characteristic.writeValue(value);
           }),
         )
   }
