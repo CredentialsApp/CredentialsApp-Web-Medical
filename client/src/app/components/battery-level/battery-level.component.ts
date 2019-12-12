@@ -64,12 +64,18 @@ export class BatteryLevelComponent implements OnInit {
 
   requestValue() {
     this.valuesSubscription = this.service
-      .value()
-      .subscribe(null, this.hasError.bind(this));
+      .readValue()
+      .subscribe(this.updateValue.bind(this), this.hasError.bind(this));
+  }
+  
+  writeValue() {
+    this.valuesSubscription = this.service
+    .writeValue()
+    .subscribe(null, this.hasError.bind(this));
   }
 
   updateValue(value: number) {
-    console.log("Reading battery level %d", value);
+    console.log(value);
     this.value = value;
   }
 

@@ -4,3 +4,6 @@
 <button *ngIf="device | async" (click)="disconnect()">
   Disconnect
 </button>
+<button *ngIf="!(device | async)" (click)="writeValue()">
+  writeValue
+</button>
