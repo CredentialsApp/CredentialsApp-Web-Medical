@@ -38,6 +38,12 @@ export const ROUTES: RouteInfo[] = [
     title: "Updates",
     icon: "nc-spaceship",
     class: ""
+  },
+  {
+    path: "/addItem",
+    title: "Add Item",
+    icon: "nc-simple-add",
+    class: ""
   }
 ];
 

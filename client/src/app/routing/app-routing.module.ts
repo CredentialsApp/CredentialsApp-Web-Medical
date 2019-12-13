@@ -10,6 +10,7 @@ import { IdentifyPatientComponent } from "../components/identify-patient/identif
 import { ReviewMyNotesComponent } from "../components/review-my-notes/review-my-notes.component";
 import { UpdatesComponent } from "../components/updates/updates.component";
 import { AccountDetailsComponent } from "../components/account-details/account-details.component";
+import { BleConnectComponent } from "../components/ble-connect/ble-connect.component";
 import { AuthService } from "../services/auth.service";
 
 export const routes: Routes = [
@@ -22,6 +23,7 @@ export const routes: Routes = [
   { path: "identifyPatient", component: IdentifyPatientComponent },
   { path: "updates", component: UpdatesComponent },
   { path: "accountDetails", component: AccountDetailsComponent },
+  { path: "addItem", component: BleConnectComponent },
   {
     path: "**",
     redirectTo: "home",

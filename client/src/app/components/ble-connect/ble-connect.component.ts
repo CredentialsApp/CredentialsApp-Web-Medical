@@ -6,6 +6,7 @@ import {
   BrowserWebBluetooth,
   ConsoleLoggerService
 } from "@manekinekko/angular-web-bluetooth";
+import { ToastrService } from 'ngx-toastr';
 
 const PROVIDERS = [
   {
@@ -27,15 +28,11 @@ const PROVIDERS = [
 })
 export class BleConnectComponent implements OnInit {
   value = null;
+  device = null;
   valuesSubscription: Subscription;
-  streamSubscription: Subscription;
   deviceSubscription: Subscription;
 
-  getDevice() {
-    return this.service.getDevice();
-  }
-
-  constructor(public service: BluetoothService) {
+  constructor(public service: BluetoothService, private toastrService: ToastrService) {
     service.config({
       decoder: (value: DataView) => value.getInt8(0),
       service: this.getCanonicalUUID(0x3131),
@@ -44,13 +41,17 @@ export class BleConnectComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.streamSubscription = this.service
-      .stream()
-      .subscribe(this.updateValue.bind(this), this.hasError.bind(this));
+    this.writeValue();
+    this.getDeviceStatus();
+  }
+  
+  getDevice() {
+    return this.service.getDevice();
   }
 
   getDeviceStatus() {
     this.deviceSubscription = this.service.getDevice().subscribe(device => {
+      this.device = device;
       if (device) {
         this.value = null;
       } else {
@@ -67,13 +68,10 @@ export class BleConnectComponent implements OnInit {
   }
   
   writeValue() {
-    this.valuesSubscription = this.service
-    .writeValue()
-    .subscribe(null, this.hasError.bind(this));
+    this.service.writeValue().subscribe(null, this.hasError.bind(this));
   }
 
   updateValue(value: any) {
-    console.log(value);
     this.value = value;
   }
 
@@ -83,7 +81,9 @@ export class BleConnectComponent implements OnInit {
     this.valuesSubscription.unsubscribe();
   }
 
-  hasError(error: string) {}
+  hasError(error: string) {
+   this.toastrService.error(error);
+  }
 
   getCanonicalUUID(uuid: string | number): string {
     if (typeof uuid === "number") uuid = uuid.toString(16);
@@ -100,10 +100,6 @@ export class BleConnectComponent implements OnInit {
 
     if(this.deviceSubscription){
       this.deviceSubscription.unsubscribe();
-    }
-
-    if(this.streamSubscription){
-      this.streamSubscription.unsubscribe();
     }
 
   }
