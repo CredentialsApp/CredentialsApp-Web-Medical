@@ -29,6 +29,7 @@ const PROVIDERS = [
 export class BleConnectComponent implements OnInit {
   value = null;
   device = null;
+  data = [];
   valuesSubscription: Subscription;
   deviceSubscription: Subscription;
 
@@ -41,6 +42,10 @@ export class BleConnectComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.data = [
+      {name : "Blood Type - A + ", isSelected: true},
+      {name : "Do not administer", isSelected:false}
+    ];
     this.writeValue();
     this.getDeviceStatus();
   }
@@ -101,7 +106,10 @@ export class BleConnectComponent implements OnInit {
     if(this.deviceSubscription){
       this.deviceSubscription.unsubscribe();
     }
+  }
 
+  updateObject(){
+    // it will write for edit object and after sign.
   }
 
 }

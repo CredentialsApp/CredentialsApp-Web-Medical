@@ -1,4 +1,4 @@
-<button *ngIf="!(device)" (click)="requestValue()">
+<!-- <button *ngIf="!(device)" (click)="requestValue()">
     Connect
   </button>
   <button *ngIf="device" (click)="disconnect()">
@@ -6,4 +6,54 @@
   </button>
   <button *ngIf="!(device)" (click)="writeValue()">
     WriteValue
-  </button>
+  </button> -->
+<span *ngIf="!(device)" style="text-align: center;">Get Help while scannig for devices</span>
+  <div class="row" *ngIf="device">
+
+    <!--Grid column-->
+    <div class="col-md-6">
+  
+      <mdb-card class="testimonial-card">
+        <!--Bacground color-->
+        <div class="card-up indigo lighten-1">
+        </div>
+  
+        <!--Avatar-->
+        <div class="avatar mx-auto" style="min-width: 90px; min-height: 90px;">
+          <img src="../../../assets/img/default-avatar.png" class="rounded-circle">
+        </div>
+  
+        <mdb-card-body style="text-align: center;">
+          <!--Name-->
+          <mdb-card-title>
+            <h4>Ahmet Faruk Cali</h4>
+          </mdb-card-title>
+          <hr>
+          <!--Quotation-->
+          <span>Gender<br></span>
+          <span style="font-weight: bold;">Male<br><br></span>
+          <span>Age<br></span>
+          <span style="font-weight: bold;">24<br><br></span>
+          <span>Admitted<br></span>
+          <span style="font-weight: bold;">10 | 10 | 19<br><br></span>
+        </mdb-card-body>
+      </mdb-card>
+  
+    </div>
+    <!--Grid column-->
+    
+    <div class="col-md-6">
+      <mdb-card>
+        <!--Card content-->
+        <mdb-card-body>
+          <!--Text-->
+          <div *ngFor="let data of data">
+          <mdb-checkbox [default]="true" [checked] = "data.isSelected" style="font-weight: bold;">{{data.name}}</mdb-checkbox>
+          </div>
+          <a mdbBtn color="primary" mdbWavesEffect>Button</a>
+        </mdb-card-body>
+      </mdb-card>
+    </div>
+  
+  </div>
+  <!--Grid row-->
