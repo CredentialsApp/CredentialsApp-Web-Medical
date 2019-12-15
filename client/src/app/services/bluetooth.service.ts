@@ -10,7 +10,7 @@ import { pipe, merge } from 'rxjs';
 type ServiceOptions = {
   characteristic: string;
   service: string;
-  decoder(value: DataView): number | { [key: string]: number };
+  decoder(value: DataView): string | { [key: string]: string };
 };
 
 export function makeSingleton() {
@@ -52,7 +52,7 @@ export class BluetoothService {
   }
 
   stream() {
-    return this.ble.streamValues$().pipe(map(this._config.decoder));
+    return this.ble.streamValues$().pipe(map((value: DataView) => new TextDecoder().decode(value)));
   }
 
   value(){
@@ -91,7 +91,7 @@ export class BluetoothService {
           }),
            
           // 5) on that DataView, get the right value
-          map((value: DataView) => value.getUint8(0))
+          map((value: DataView) => new TextDecoder().decode(value))
         )
   }
 
@@ -99,7 +99,7 @@ export class BluetoothService {
     return this.ble.getPrimaryService$(gatt,this._config.service);
   }
 
-  writeValue() {
+  writeValue(value : any) {
     console.log('Write data...');
 
     return this.ble
@@ -122,9 +122,8 @@ export class BluetoothService {
 
           // 4) ask for the value of that characteristic (will return a DataView)
           mergeMap((characteristic: BluetoothRemoteGATTCharacteristic) => {
-            var value = new TextEncoder().encode("Selam berk");
-            console.log(value);
-            return characteristic.writeValue(value);
+            var sendValue = new TextEncoder().encode(value);
+            return characteristic.writeValue(sendValue);
           }),
         )
   }

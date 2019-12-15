@@ -8,7 +8,7 @@
     WriteValue
   </button> -->
 <span *ngIf="!(device)" style="text-align: center;">Get Help while scannig for devices</span>
-  <div class="row" *ngIf="device">
+  <div class="row">
 
     <!--Grid column-->
     <div class="col-md-6">
@@ -47,10 +47,10 @@
         <!--Card content-->
         <mdb-card-body>
           <!--Text-->
-          <div *ngFor="let data of data">
+          <div *ngFor="let data of testData">
           <mdb-checkbox [default]="true" [checked] = "data.isSelected" style="font-weight: bold;">{{data.name}}</mdb-checkbox>
           </div>
-          <a mdbBtn color="primary" mdbWavesEffect>Button</a>
+          <a mdbBtn color="primary" (click)="updateObject()" mdbWavesEffect>Button</a>
         </mdb-card-body>
       </mdb-card>
     </div>

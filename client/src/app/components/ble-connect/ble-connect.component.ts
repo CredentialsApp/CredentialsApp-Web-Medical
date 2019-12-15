@@ -27,29 +27,34 @@ const PROVIDERS = [
   styleUrls: ['./ble-connect.component.scss']
 })
 export class BleConnectComponent implements OnInit {
+  doctorPublicKey = "0x0001";
   value = null;
   device = null;
-  data = [];
+  testData = [];
+  streamSubscription: Subscription;
   valuesSubscription: Subscription;
   deviceSubscription: Subscription;
 
   constructor(public service: BluetoothService, private toastrService: ToastrService) {
     service.config({
-      decoder: (value: DataView) => value.getInt8(0),
+      decoder: (value: DataView) => new TextDecoder().decode(value),
       service: this.getCanonicalUUID(0x3131),
       characteristic: this.getCanonicalUUID(0x9A12)
     });
   }
 
   ngOnInit() {
-    this.data = [
+    this.testData = [
       {name : "Blood Type - A + ", isSelected: true},
       {name : "Do not administer", isSelected:false}
     ];
-    this.writeValue();
+
+    this.writeValue(this.doctorPublicKey);
+   // this.streamValues();
     this.getDeviceStatus();
+    //  this.requestValue();
   }
-  
+
   getDevice() {
     return this.service.getDevice();
   }
@@ -72,11 +77,18 @@ export class BleConnectComponent implements OnInit {
       .subscribe(this.updateValue.bind(this), this.hasError.bind(this));
   }
   
-  writeValue() {
-    this.service.writeValue().subscribe(null, this.hasError.bind(this));
+  writeValue(value:any) {
+    //var vl = JSON.stringify(value);
+    this.service.writeValue(value).subscribe(this.streamValues.bind(this), this.hasError.bind(this));
+  }
+
+  streamValues() {
+    console.log("here");
+    this.streamSubscription = this.service.stream().subscribe(this.updateValue.bind(this), this.hasError.bind(this));
   }
 
   updateValue(value: any) {
+    console.log(value);
     this.value = value;
   }
 
@@ -105,6 +117,10 @@ export class BleConnectComponent implements OnInit {
 
     if(this.deviceSubscription){
       this.deviceSubscription.unsubscribe();
+    }
+
+    if(this.streamSubscription){
+      this.streamSubscription.unsubscribe();
     }
   }
 
