@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { BluetoothService } from "../../services/bluetooth.service";
+import {HelperService} from "../../services/helper.service";
 import {
   BluetoothCore,
   BrowserWebBluetooth,
@@ -35,11 +36,11 @@ export class BleConnectComponent implements OnInit {
   valuesSubscription: Subscription;
   deviceSubscription: Subscription;
 
-  constructor(public service: BluetoothService, private toastrService: ToastrService) {
+  constructor(public service: BluetoothService, private toastrService: ToastrService,private helperService: HelperService) {
     service.config({
       decoder: (value: DataView) => new TextDecoder().decode(value),
-      service: this.getCanonicalUUID(0x3131),
-      characteristic: this.getCanonicalUUID(0x9A12)
+      service: this.helperService.getCanonicalUUID(0x3131),
+      characteristic: this.helperService.getCanonicalUUID(0x9A12)
     });
   }
 
@@ -100,14 +101,6 @@ export class BleConnectComponent implements OnInit {
 
   hasError(error: string) {
    this.toastrService.error(error);
-  }
-
-  getCanonicalUUID(uuid: string | number): string {
-    if (typeof uuid === "number") uuid = uuid.toString(16);
-    uuid = uuid.toLowerCase();
-    if (uuid.length <= 8) uuid = ("00000000" + uuid).slice(-8) + "-0000-1000-8000-00805f9b34fb";
-    if (uuid.length === 32) uuid = uuid.match(/^([0-9a-f]{8})([0-9a-f]{4})([0-9a-f]{4})([0-9a-f]{4})([0-9a-f]{12})$/).splice(1).join("-");
-    return uuid;
   }
 
   ngOnDestroy() {

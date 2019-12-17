@@ -8,4 +8,5 @@ export class User {
   publicKey: string;
   privateKey: string;
   privateKeyHash: string;
+  doctorNameHex:string;
 }
