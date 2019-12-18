@@ -28,7 +28,8 @@ const PROVIDERS = [
   styleUrls: ['./ble-connect.component.scss']
 })
 export class BleConnectComponent implements OnInit {
-  doctorPublicKey = "0x0001";
+  doctorPublicKey = "Ai0pQ+/MMHbavVIzY47TZVZ3P1E+g51Zm7HaKKyHAQ+7";
+  cridential = "0x0100000001020101AoemgGIH/SJ3Oi3huwkFy9zZ3Tk+SUra187pDH8TW5ch0561686d657402010102010101030202";
   value = null;
   device = null;
   testData = [];
@@ -47,9 +48,9 @@ export class BleConnectComponent implements OnInit {
   ngOnInit() {
     this.testData = [
       {name : "Blood Type - A + ", isSelected: true},
-      {name : "Do not administer", isSelected:false}
+      {name : "Do not administer", isSelected: false}
     ];
-
+    console.log(this.helperService.getCridentialObject(this.cridential))
     this.writeValue(this.doctorPublicKey);
    // this.streamValues();
     this.getDeviceStatus();

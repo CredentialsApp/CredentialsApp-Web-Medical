@@ -23,7 +23,7 @@ export class CryptologyService {
 
     var privateKeyHex =
     doctorNameHex + this.randomHex + clinicNameHex + this.randomHex + passwordHex;
-    console.log(privateKeyHex);
+
     var privateKey = CryptoJS.HmacSHA256(
       privateKeyHex,
       this.privateSecret

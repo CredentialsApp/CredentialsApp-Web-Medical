@@ -48,7 +48,7 @@
         <mdb-card-body>
           <!--Text-->
           <div *ngFor="let data of testData">
-          <mdb-checkbox [default]="true" [checked] = "data.isSelected" style="font-weight: bold;">{{data.name}}</mdb-checkbox>
+          <mdb-checkbox [indeterminate]="true" [default]="true" [checked] = "data.isSelected" style="font-weight: bold;">{{data.name}}</mdb-checkbox>
           </div>
           <a mdbBtn color="primary" (click)="updateObject()" mdbWavesEffect>Button</a>
         </mdb-card-body>
