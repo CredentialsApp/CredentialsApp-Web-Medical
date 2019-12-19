@@ -95,10 +95,6 @@ export class BluetoothService {
         )
   }
 
-  getPrimaryService(gatt: BluetoothRemoteGATTServer){
-    return this.ble.getPrimaryService$(gatt,this._config.service);
-  }
-
   writeValue(value : any) {
     console.log('Write data...');
 
@@ -117,6 +113,7 @@ export class BluetoothService {
 
           // 3) get a specific characteristic on that service
           mergeMap((primaryService: BluetoothRemoteGATTService) => {
+            console.log(primaryService);
             return this.ble.getCharacteristic$(primaryService, this._config.characteristic);
           }),
 
@@ -126,6 +123,20 @@ export class BluetoothService {
             return characteristic.writeValue(sendValue);
           }),
         )
+  }
+
+  rewrite(device: BluetoothDevice, value: any){
+    return this.ble.getPrimaryService$(device.gatt,this._config.service).pipe(
+     
+      mergeMap((primaryService: BluetoothRemoteGATTService) => {
+        return this.ble.getCharacteristic$(primaryService, this._config.characteristic);
+      }),
+
+      mergeMap((characteristic: BluetoothRemoteGATTCharacteristic) => {
+        var sendValue = new TextEncoder().encode(value);
+        return characteristic.writeValue(sendValue);
+      }),
+    )
   }
 
   onCharacteristicChanged(event:Event){

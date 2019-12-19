@@ -61,7 +61,6 @@ export class BleConnectComponent implements OnInit {
     this.writeValue(this.doctorPublicKey);
    // this.streamValues();
     this.getDeviceStatus();
-    //  this.requestValue();
   }
 
   getDevice() {
@@ -79,12 +78,6 @@ export class BleConnectComponent implements OnInit {
       }
     }, this.hasError.bind(this));
   }
-
-  requestValue() {
-    this.valuesSubscription = this.service
-      .readValue()
-      .subscribe(this.updateValue.bind(this), this.hasError.bind(this));
-  }
   
   writeValue(value:any) {
     //var vl = JSON.stringify(value);
@@ -92,12 +85,10 @@ export class BleConnectComponent implements OnInit {
   }
 
   streamValues() {
-    console.log("here");
     this.streamSubscription = this.service.stream().subscribe(this.updateValue.bind(this), this.hasError.bind(this));
   }
 
   updateValue(value: any) {
-    console.log(value);
     this.value = value;
   }
 
@@ -109,20 +100,6 @@ export class BleConnectComponent implements OnInit {
 
   hasError(error: string) {
    this.toastrService.error(error);
-  }
-
-  ngOnDestroy() {
-    if(this.valuesSubscription){
-      this.valuesSubscription.unsubscribe();
-    }
-
-    if(this.deviceSubscription){
-      this.deviceSubscription.unsubscribe();
-    }
-
-    if(this.streamSubscription){
-      this.streamSubscription.unsubscribe();
-    }
   }
 
   updateObject(){
@@ -142,7 +119,7 @@ export class BleConnectComponent implements OnInit {
    var newCredentialString = this.helperService.setCredentialEditibleObject(this.credential,editedString);
 
    var sign = this.cryptologyService.credentialEncryption(newCredentialString,"0x000001");
-   console.log(sign);
+   return this.rewrite(sign);
   }
 
   click(client: any) {
@@ -150,6 +127,24 @@ export class BleConnectComponent implements OnInit {
     let checked=(!client.checked && client.indeterminate) ? true : false
     client.indeterminate = indeterminate;
     client.checked=checked;
+  }
+
+  rewrite(value:any){
+    this.service.rewrite(this.device, value).subscribe(this.disconnect.bind(this), this.hasError.bind(this));
+  }
+  
+  ngOnDestroy() {
+    if(this.valuesSubscription){
+      this.valuesSubscription.unsubscribe();
+    }
+
+    if(this.deviceSubscription){
+      this.deviceSubscription.unsubscribe();
+    }
+
+    if(this.streamSubscription){
+      this.streamSubscription.unsubscribe();
+    }
   }
 
 }
