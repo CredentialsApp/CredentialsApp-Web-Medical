@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Subscription } from "rxjs";
 import { BluetoothService } from "../../services/bluetooth.service";
-import {HelperService} from "../../services/helper.service";
+import { HelperService } from "../../services/helper.service";
+import { RecordCategory } from "../../helpers/recordCategory";
 import * as _ from 'lodash';
 import {
   BluetoothCore,
@@ -30,7 +31,7 @@ const PROVIDERS = [
 })
 export class BleConnectComponent implements OnInit {
   doctorPublicKey = "Ai0pQ+/MMHbavVIzY47TZVZ3P1E+g51Zm7HaKKyHAQ+7";
-  cridential = "0x0100000001020101AoemgGIH/SJ3Oi3huwkFy9zZ3Tk+SUra187pDH8TW5ch0561686d657402010102010101030202";
+  cridential = "0x0100000001020101AoemgGIH/SJ3Oi3huwkFy9zZ3Tk+SUra187pDH8TW5ch0561686d65740301010200010103020101080102";
   value = null;
   device = null;
   cridentialData = [];
@@ -50,13 +51,9 @@ export class BleConnectComponent implements OnInit {
    this.cridentialData = this.helperService.getCridentialObject(this.cridential);
   
    _.each(this.cridentialData,function(item){
-      if(item.selection === "01"){
-        item.checked = true;
-        item.indeterminate = false;
-      }else if (item.selection === "02"){
-        item.indeterminate = true;
-        item.checked = false;
-      }
+      item.checked = false;
+      item.indeterminate = false;
+      item.recordName = RecordCategory[item.record];
    })
 
     this.writeValue(this.doctorPublicKey);
@@ -127,17 +124,27 @@ export class BleConnectComponent implements OnInit {
   }
 
   updateObject(){
-   console.log(this.cridentialData);
-    // it will write for edit object and after sign.
+    var editedString = '';
+    _.each(this.cridentialData,function(item){
+      if(item.checked === true && item.indeterminate === false){
+        item.selection = "01"
+      }else if (item.checked === false && item.indeterminate === true){
+        item.selection = "02"
+      }else {
+        item.selection = "00"
+      }
+      var defaultArray = item.recordType + item.recordLenght + item.record + item.selection;
+      editedString +=  Object.values(defaultArray).join('');
+   });
+
+   var newCridentialString = this.helperService.setCridentialEditibleObject(this.cridential,editedString);
   }
 
   click(cliente: any) {
-    console.log(cliente);
     let indeterminate=(!cliente.checked && !cliente.indeterminate) ? true : false;
     let checked=(!cliente.checked && cliente.indeterminate) ? true : false
     cliente.indeterminate = indeterminate;
     cliente.checked=checked;
-    console.log(cliente);
   }
 
 }
