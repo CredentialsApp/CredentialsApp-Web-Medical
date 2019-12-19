@@ -31,16 +31,16 @@ export class HelperService {
   }
 
   setCredentialEditibleObject(credential: string, editedString: string){
-    var multiplier = parseInt(credential.substring(62, 64));
-    var newsub = (multiplier + 1) * 2 + 62;
+    var multiplier = parseInt(credential.substring(60, 62));
+    var newsub = (multiplier + 1) * 2 + 60;
     var staticString = credential.substring(0,newsub+2);
     return staticString + editedString + "02";
   }
 
   getCredentialObject(credential: string) {
-    var multiplier = parseInt(credential.substring(62, 64));
+    var multiplier = parseInt(credential.substring(60, 62));
 
-    var newsub = (multiplier + 1) * 2 + 62;
+    var newsub = (multiplier + 1) * 2 + 60;
     var last = credential.substring(newsub);
 
     var newMultiplier = parseInt(last.substring(0, 2));

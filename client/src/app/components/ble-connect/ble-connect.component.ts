@@ -1,8 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { Subscription } from "rxjs";
+import { Subscription, from } from "rxjs";
 import { BluetoothService } from "../../services/bluetooth.service";
 import { HelperService } from "../../services/helper.service";
 import { RecordCategory } from "../../helpers/recordCategory";
+import { CryptologyService } from "../../services/cryptology.service";
 import * as _ from 'lodash';
 import {
   BluetoothCore,
@@ -31,7 +32,7 @@ const PROVIDERS = [
 })
 export class BleConnectComponent implements OnInit {
   doctorPublicKey = "Ai0pQ+/MMHbavVIzY47TZVZ3P1E+g51Zm7HaKKyHAQ+7";
-  credential = "0x0100000001020101AoemgGIH/SJ3Oi3huwkFy9zZ3Tk+SUra187pDH8TW5ch0561686d65740301010200010103020101080102";
+  credential = "0100000001020101AoemgGIH/SJ3Oi3huwkFy9zZ3Tk+SUra187pDH8TW5ch0561686d65740301010200010103020101080102";
   value = null;
   device = null;
   credentialData = [];
@@ -39,7 +40,8 @@ export class BleConnectComponent implements OnInit {
   valuesSubscription: Subscription;
   deviceSubscription: Subscription;
 
-  constructor(public service: BluetoothService, private toastrService: ToastrService,private helperService: HelperService) {
+  constructor(public service: BluetoothService, private toastrService: ToastrService,
+              private helperService: HelperService, private cryptologyService: CryptologyService) {
     service.config({
       decoder: (value: DataView) => new TextDecoder().decode(value),
       service: this.helperService.getCanonicalUUID(0x3131),
@@ -138,6 +140,9 @@ export class BleConnectComponent implements OnInit {
    });
 
    var newCredentialString = this.helperService.setCredentialEditibleObject(this.credential,editedString);
+
+   var sign = this.cryptologyService.credentialEncryption(newCredentialString,"0x000001");
+   console.log(sign);
   }
 
   click(client: any) {
