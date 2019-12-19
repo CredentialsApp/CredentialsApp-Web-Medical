@@ -29,7 +29,7 @@ export class LogService {
         return data;
       }),
       catchError(error => {
-        return throwError("Loge not found!");
+        return throwError("Log not found!");
       })
     );
   }

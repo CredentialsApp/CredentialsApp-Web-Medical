@@ -12,6 +12,7 @@ export class CryptologyService {
   privateSecret: string =
     "4107E215B2E4907348E67E4B77FA7CC0DF1897DB342316520DBA5ED9CB0E1C1B";
   randomHex: string = "ffffffff";
+  privateKey : string;
   constructor(private helperService : HelperService) {}
 
   encryption(user: User): any {
@@ -24,18 +25,18 @@ export class CryptologyService {
     var privateKeyHex =
     doctorNameHex + this.randomHex + clinicNameHex + this.randomHex + passwordHex;
 
-    var privateKey = CryptoJS.HmacSHA256(
+    this.privateKey = CryptoJS.HmacSHA256(
       privateKeyHex,
       this.privateSecret
     ).toString();
 
     var publicKey = secp256k1
-      .publicKeyCreate(Buffer.alloc(32, privateKey, "base64"))
+      .publicKeyCreate(Buffer.alloc(32, this.privateKey, "base64"))
       .toString("base64");
 
     user.doctorNameHex = doctorNameHex;
     user.publicKey = publicKey;
-    user.privateKey = privateKey;
+    user.privateKey = this.privateKey;
     return user;
   }
 

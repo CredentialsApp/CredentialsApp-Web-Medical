@@ -30,18 +30,18 @@ export class HelperService {
     return uuid;
   }
 
-  setCridentialEditibleObject(cridential: string,editedString: string){
-    var multiplier = parseInt(cridential.substring(62, 64));
+  setCredentialEditibleObject(credential: string, editedString: string){
+    var multiplier = parseInt(credential.substring(62, 64));
     var newsub = (multiplier + 1) * 2 + 62;
-    var staticString = cridential.substring(0,newsub+2);
+    var staticString = credential.substring(0,newsub+2);
     return staticString + editedString + "02";
   }
 
-  getCridentialObject(cridential: string) {
-    var multiplier = parseInt(cridential.substring(62, 64));
+  getCredentialObject(credential: string) {
+    var multiplier = parseInt(credential.substring(62, 64));
 
     var newsub = (multiplier + 1) * 2 + 62;
-    var last = cridential.substring(newsub);
+    var last = credential.substring(newsub);
 
     var newMultiplier = parseInt(last.substring(0, 2));
 

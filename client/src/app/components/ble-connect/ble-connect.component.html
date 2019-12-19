@@ -47,11 +47,11 @@
         <!--Card content-->
         <mdb-card-body>
           <!--Text-->
-          <div class="custom-control custom-checkbox" *ngFor="let data of cridentialData">
+          <div class="custom-control custom-checkbox" *ngFor="let data of credentialData">
               <input type="checkbox" class="custom-control-input" [checked] = "data.checked" [indeterminate]="data.indeterminate" (click)="click(data)" id="data{{data.record}}" />
               <label class="custom-control-label" for="data{{data.record}}" style="font-weight: bold;">{{data.recordName}}</label>
           </div>
-          <a mdbBtn color="primary" (click)="updateObject()" mdbWavesEffect>Update</a>
+          <a mdbBtn color="primary" (click)="updateObject()" mdbWavesEffect>Confirm Selection</a>
         </mdb-card-body>
       </mdb-card>
     </div>

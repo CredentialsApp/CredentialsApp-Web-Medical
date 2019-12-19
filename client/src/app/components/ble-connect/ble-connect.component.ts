@@ -31,10 +31,10 @@ const PROVIDERS = [
 })
 export class BleConnectComponent implements OnInit {
   doctorPublicKey = "Ai0pQ+/MMHbavVIzY47TZVZ3P1E+g51Zm7HaKKyHAQ+7";
-  cridential = "0x0100000001020101AoemgGIH/SJ3Oi3huwkFy9zZ3Tk+SUra187pDH8TW5ch0561686d65740301010200010103020101080102";
+  credential = "0x0100000001020101AoemgGIH/SJ3Oi3huwkFy9zZ3Tk+SUra187pDH8TW5ch0561686d65740301010200010103020101080102";
   value = null;
   device = null;
-  cridentialData = [];
+  credentialData = [];
   streamSubscription: Subscription;
   valuesSubscription: Subscription;
   deviceSubscription: Subscription;
@@ -48,9 +48,9 @@ export class BleConnectComponent implements OnInit {
   }
 
   ngOnInit() {
-   this.cridentialData = this.helperService.getCridentialObject(this.cridential);
+   this.credentialData = this.helperService.getCredentialObject(this.credential);
   
-   _.each(this.cridentialData,function(item){
+   _.each(this.credentialData,function(item){
       item.checked = false;
       item.indeterminate = false;
       item.recordName = RecordCategory[item.record];
@@ -125,7 +125,7 @@ export class BleConnectComponent implements OnInit {
 
   updateObject(){
     var editedString = '';
-    _.each(this.cridentialData,function(item){
+    _.each(this.credentialData,function(item){
       if(item.checked === true && item.indeterminate === false){
         item.selection = "01"
       }else if (item.checked === false && item.indeterminate === true){
@@ -137,14 +137,14 @@ export class BleConnectComponent implements OnInit {
       editedString +=  Object.values(defaultArray).join('');
    });
 
-   var newCridentialString = this.helperService.setCridentialEditibleObject(this.cridential,editedString);
+   var newCredentialString = this.helperService.setCredentialEditibleObject(this.credential,editedString);
   }
 
-  click(cliente: any) {
-    let indeterminate=(!cliente.checked && !cliente.indeterminate) ? true : false;
-    let checked=(!cliente.checked && cliente.indeterminate) ? true : false
-    cliente.indeterminate = indeterminate;
-    cliente.checked=checked;
+  click(client: any) {
+    let indeterminate=(!client.checked && !client.indeterminate) ? true : false;
+    let checked=(!client.checked && client.indeterminate) ? true : false
+    client.indeterminate = indeterminate;
+    client.checked=checked;
   }
 
 }
