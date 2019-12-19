@@ -39,16 +39,16 @@ getCridentialObject(cridential:string){
   var lastArray = lastString.match(/.{1,2}/g);
   
   var recordArray = [];
-  var recordObject = new RecordModel();
 
   for (var i = 0; i<newMultiplier*4; i+=4){
+  var recordObject = new RecordModel();
   recordObject.recordType = lastArray[i];
   recordObject.recordLenght = lastArray[i+1];
   recordObject.record = RecordCategory[lastArray[i+2]];
   recordObject.selection = lastArray[i+3];
   recordArray.push(recordObject);
   }
-
+  
    return recordArray;
 }
 
