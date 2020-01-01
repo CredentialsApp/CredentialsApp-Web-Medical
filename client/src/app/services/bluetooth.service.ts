@@ -52,7 +52,7 @@ export class BluetoothService {
   }
 
   stream() {
-    return this.ble.streamValues$().pipe(map((value: DataView) => new TextDecoder().decode(value)));
+    return this.ble.streamValues$().pipe(map((value: DataView) => console.log(new TextDecoder().decode(value))));
   }
 
   value(){
@@ -113,12 +113,12 @@ export class BluetoothService {
 
           // 3) get a specific characteristic on that service
           mergeMap((primaryService: BluetoothRemoteGATTService) => {
-            console.log(primaryService);
             return this.ble.getCharacteristic$(primaryService, this._config.characteristic);
           }),
 
           // 4) ask for the value of that characteristic (will return a DataView)
           mergeMap((characteristic: BluetoothRemoteGATTCharacteristic) => {
+            console.log(characteristic);
             var sendValue = new TextEncoder().encode(value);
             return characteristic.writeValue(sendValue);
           }),
@@ -136,6 +136,24 @@ export class BluetoothService {
         var sendValue = new TextEncoder().encode(value);
         return characteristic.writeValue(sendValue);
       }),
+    )
+  }
+
+  observeData(device: BluetoothDevice){
+    console.log("observeData....")
+    return this.ble.getPrimaryService$(device.gatt,this._config.service).pipe(
+     
+      mergeMap((primaryService: BluetoothRemoteGATTService) => {
+        return this.ble.getCharacteristic$(primaryService, this._config.characteristic);
+      }),
+
+      mergeMap((characteristic: BluetoothRemoteGATTCharacteristic) => {
+        console.log(characteristic);
+        return this.ble.observeValue$(characteristic);
+      }),
+  
+      map((value: DataView) => new TextDecoder().decode(value)
+      )
     )
   }
 

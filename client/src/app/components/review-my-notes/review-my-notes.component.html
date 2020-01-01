@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<div class="col-md-12" *ngIf="dataList">
   <div class="card-body">
     <div class="table-responsive">
       <table class="table">
@@ -42,4 +42,7 @@
       </table>
     </div>
   </div>
+</div>
+<div class="text-center" *ngIf="!(dataList)">
+  <span>Notes Not found!</span>
 </div>

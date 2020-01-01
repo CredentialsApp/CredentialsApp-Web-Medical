@@ -1,14 +1,6 @@
-<!-- <button *ngIf="!(device)" (click)="requestValue()">
-    Connect
-  </button>
-  <button *ngIf="device" (click)="disconnect()">
-    Disconnect
-  </button>
-  <button *ngIf="!(device)" (click)="writeValue()">
-    WriteValue
-  </button> -->
-<span *ngIf="!(device)" style="text-align: center;">Get Help while scannig for devices</span>
-  <div class="row">
+<!-- <span *ngIf="!(device)" style="text-align: center;">Get Help while scannig for devices</span> -->
+
+<div class="row" *ngIf="value">
 
     <!--Grid column-->
     <div class="col-md-6">
@@ -19,8 +11,8 @@
         </div>
   
         <!--Avatar-->
-        <div class="avatar mx-auto" style="min-width: 90px; min-height: 90px;">
-          <img src="../../../assets/img/default-avatar.png" class="rounded-circle">
+        <div class="avatar mx-auto" style="min-width: 90px; min-height: 90px; margin-top: 10px;">
+          <img src="../../../assets/img/ahmet.jpg" class="rounded-circle">
         </div>
   
         <mdb-card-body style="text-align: center;">
@@ -55,6 +47,6 @@
         </mdb-card-body>
       </mdb-card>
     </div>
-  
   </div>
+  <span *ngIf="isApprove" style="text-align: center; margin-left: 300px; font-size: 48px;"><i class="nc-icon nc-badge"></i>&nbsp; Credential created successfully </span>
   <!--Grid row-->

@@ -59,7 +59,7 @@ export class HelperService {
       recordObject.selection = lastArray[i + 3];
       recordArray.push(recordObject);
     }
-
+    
     return recordArray;
   }
 }

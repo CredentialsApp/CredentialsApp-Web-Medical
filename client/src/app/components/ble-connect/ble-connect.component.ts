@@ -32,11 +32,11 @@ const PROVIDERS = [
 })
 export class BleConnectComponent implements OnInit {
   doctorPublicKey = "Ai0pQ+/MMHbavVIzY47TZVZ3P1E+g51Zm7HaKKyHAQ+7";
-  credential = "0100000001020101AoemgGIH/SJ3Oi3huwkFy9zZ3Tk+SUra187pDH8TW5ch0561686d65740301010200010103020101080102";
+  credential = "0100000001020101AoemgGIH/SJ3Oi3huwkFy9zZ3Tk+SUra187pDH8TW5ch07111161686d65740901010200010103020101080101010502010107000101090001010A0001010E0001010F0002";
   value = null;
   device = null;
   credentialData = [];
-  streamSubscription: Subscription;
+  isApprove = false;
   valuesSubscription: Subscription;
   deviceSubscription: Subscription;
 
@@ -59,7 +59,6 @@ export class BleConnectComponent implements OnInit {
    })
 
     this.writeValue(this.doctorPublicKey);
-   // this.streamValues();
     this.getDeviceStatus();
   }
 
@@ -73,27 +72,27 @@ export class BleConnectComponent implements OnInit {
       if (device) {
         this.value = null;
       } else {
-        // device not connected or disconnected
         this.value = null;
       }
     }, this.hasError.bind(this));
   }
   
   writeValue(value:any) {
-    //var vl = JSON.stringify(value);
-    this.service.writeValue(value).subscribe(this.streamValues.bind(this), this.hasError.bind(this));
+    this.service.writeValue(value).subscribe(this.readValue.bind(this), this.hasError.bind(this));
   }
 
-  streamValues() {
-    this.streamSubscription = this.service.stream().subscribe(this.updateValue.bind(this), this.hasError.bind(this));
+  readValue() {
+    this.valuesSubscription = this.service.observeData(this.device).subscribe(this.updateValue.bind(this), this.hasError.bind(this));
   }
 
   updateValue(value: any) {
+    console.log(value);
     this.value = value;
   }
 
   disconnect() {
     this.service.disconnectDevice();
+    this.isApprove = true;
     this.deviceSubscription.unsubscribe();
     this.valuesSubscription.unsubscribe();
   }
@@ -117,8 +116,9 @@ export class BleConnectComponent implements OnInit {
    });
 
    var newCredentialString = this.helperService.setCredentialEditibleObject(this.credential,editedString);
-
+   
    var sign = this.cryptologyService.credentialEncryption(newCredentialString,"0x000001");
+   this.toastrService.success("Approval completed.");
    return this.rewrite(sign);
   }
 
@@ -140,10 +140,6 @@ export class BleConnectComponent implements OnInit {
 
     if(this.deviceSubscription){
       this.deviceSubscription.unsubscribe();
-    }
-
-    if(this.streamSubscription){
-      this.streamSubscription.unsubscribe();
     }
   }
 
