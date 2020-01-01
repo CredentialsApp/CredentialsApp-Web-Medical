@@ -39,6 +39,7 @@ export class BleConnectComponent implements OnInit {
   isApprove = false;
   valuesSubscription: Subscription;
   deviceSubscription: Subscription;
+  statusText : string;
 
   constructor(public service: BluetoothService, private toastrService: ToastrService,
               private helperService: HelperService, private cryptologyService: CryptologyService) {
@@ -50,7 +51,7 @@ export class BleConnectComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.statusText = "Scanning Devices";
     this.writeValue(this.doctorPublicKey);
     this.getDeviceStatus();
   }
@@ -75,6 +76,7 @@ export class BleConnectComponent implements OnInit {
   }
 
   readValue() {
+    this.statusText = "Waiting credential";
     this.valuesSubscription = this.service.observeData(this.device).subscribe(this.updateValue.bind(this), this.hasError.bind(this));
   }
 
@@ -92,9 +94,11 @@ export class BleConnectComponent implements OnInit {
 
   disconnect() {
     this.service.disconnectDevice();
+
     if(this.deviceSubscription){
     this.deviceSubscription.unsubscribe();
     }
+
     if(this.valuesSubscription){
     this.valuesSubscription.unsubscribe();
     }
@@ -122,7 +126,7 @@ export class BleConnectComponent implements OnInit {
    
    var sign = this.cryptologyService.credentialEncryption(newCredentialString,"0x000001");
    this.toastrService.success("Approval completed.");
-   return this.rewrite("AHMET");
+   return this.rewrite(sign);
   }
 
   click(client: any) {

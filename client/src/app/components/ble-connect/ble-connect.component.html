@@ -1,6 +1,11 @@
-<span *ngIf="!(device)" style="text-align: center;">Get Help while scannig for devices</span>
+<div class="d-flex justify-content-center" *ngIf="!(isApprove) && !(value)">
+<button mdbBtn color="primary" type="button" disabled>
+  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+  {{statusText}}
+</button>
+</div>
 
-<div class="row">
+<div class="row" *ngIf="device && value && !(isApprove)">
 
     <!--Grid column-->
     <div class="col-md-6">
