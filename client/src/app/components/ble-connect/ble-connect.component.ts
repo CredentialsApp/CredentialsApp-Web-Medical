@@ -50,13 +50,6 @@ export class BleConnectComponent implements OnInit {
   }
 
   ngOnInit() {
-   this.credentialData = this.helperService.getCredentialObject(this.credential);
-  
-   _.each(this.credentialData,function(item){
-      item.checked = false;
-      item.indeterminate = false;
-      item.recordName = RecordCategory[item.record];
-   })
 
     this.writeValue(this.doctorPublicKey);
     this.getDeviceStatus();
@@ -88,13 +81,23 @@ export class BleConnectComponent implements OnInit {
   updateValue(value: any) {
     console.log(value);
     this.value = value;
+    this.credentialData = this.helperService.getCredentialObject(this.value);
+  
+    _.each(this.credentialData,function(item){
+       item.checked = false;
+       item.indeterminate = false;
+       item.recordName = RecordCategory[item.record];
+    })
   }
 
   disconnect() {
     this.service.disconnectDevice();
-    this.isApprove = true;
+    if(this.deviceSubscription){
     this.deviceSubscription.unsubscribe();
+    }
+    if(this.valuesSubscription){
     this.valuesSubscription.unsubscribe();
+    }
   }
 
   hasError(error: string) {
@@ -119,7 +122,7 @@ export class BleConnectComponent implements OnInit {
    
    var sign = this.cryptologyService.credentialEncryption(newCredentialString,"0x000001");
    this.toastrService.success("Approval completed.");
-   return this.rewrite(sign);
+   return this.rewrite("AHMET");
   }
 
   click(client: any) {
@@ -130,17 +133,12 @@ export class BleConnectComponent implements OnInit {
   }
 
   rewrite(value:any){
+    this.valuesSubscription.unsubscribe();
     this.service.rewrite(this.device, value).subscribe(this.disconnect.bind(this), this.hasError.bind(this));
   }
   
   ngOnDestroy() {
-    if(this.valuesSubscription){
-      this.valuesSubscription.unsubscribe();
-    }
-
-    if(this.deviceSubscription){
-      this.deviceSubscription.unsubscribe();
-    }
+    this.disconnect();
   }
 
 }
