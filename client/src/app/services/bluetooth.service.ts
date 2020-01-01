@@ -51,10 +51,6 @@ export class BluetoothService {
     })
   }
 
-  stream() {
-    return this.ble.streamValues$().pipe(map((value: DataView) => console.log(new TextDecoder().decode(value))));
-  }
-
   value(){
     var options = {
       service : this._config.service,
@@ -148,7 +144,6 @@ export class BluetoothService {
       }),
 
       mergeMap((characteristic: BluetoothRemoteGATTCharacteristic) => {
-        console.log(characteristic);
         return this.ble.observeValue$(characteristic);
       }),
   

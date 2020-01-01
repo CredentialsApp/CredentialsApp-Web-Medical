@@ -5,25 +5,8 @@ import { HelperService } from "../../services/helper.service";
 import { RecordCategory } from "../../helpers/recordCategory";
 import { CryptologyService } from "../../services/cryptology.service";
 import * as _ from 'lodash';
-import {
-  BluetoothCore,
-  BrowserWebBluetooth,
-  ConsoleLoggerService
-} from "@manekinekko/angular-web-bluetooth";
 import { ToastrService } from 'ngx-toastr';
 
-const PROVIDERS = [
-  {
-    provide: BluetoothCore,
-    useFactory: (b, l) => new BluetoothCore(b, l),
-    deps: [BrowserWebBluetooth, ConsoleLoggerService]
-  },
-  {
-    provide: BluetoothService,
-    useFactory: b => new BluetoothService(b),
-    deps: [BluetoothCore]
-  }
-];
 
 @Component({
   selector: 'ble-connect',
@@ -40,6 +23,7 @@ export class BleConnectComponent implements OnInit {
   valuesSubscription: Subscription;
   deviceSubscription: Subscription;
   statusText : string;
+  reScanButtonDisable = true;
 
   constructor(public service: BluetoothService, private toastrService: ToastrService,
               private helperService: HelperService, private cryptologyService: CryptologyService) {
@@ -52,7 +36,7 @@ export class BleConnectComponent implements OnInit {
 
   ngOnInit() {
     this.statusText = "Scanning Devices";
-    this.writeValue(this.doctorPublicKey);
+    this.writeValue();
     this.getDeviceStatus();
   }
 
@@ -71,8 +55,12 @@ export class BleConnectComponent implements OnInit {
     }, this.hasError.bind(this));
   }
   
-  writeValue(value:any) {
-    this.service.writeValue(value).subscribe(this.readValue.bind(this), this.hasError.bind(this));
+  writeValue() {
+    this.service.writeValue(this.doctorPublicKey).subscribe(this.readValue.bind(this), error =>{
+      this.reScanButtonDisable = false;
+      this.statusText = "Scan Bluetooth Devices";
+      this.hasError(error);
+    });
   }
 
   readValue() {
@@ -138,7 +126,10 @@ export class BleConnectComponent implements OnInit {
 
   rewrite(value:any){
     this.valuesSubscription.unsubscribe();
-    this.service.rewrite(this.device, value).subscribe(this.disconnect.bind(this), this.hasError.bind(this));
+    this.service.rewrite(this.device, value).subscribe(response => {
+      this.disconnect.bind(this)
+      this.isApprove = true
+    }, this.hasError.bind(this));
   }
   
   ngOnDestroy() {

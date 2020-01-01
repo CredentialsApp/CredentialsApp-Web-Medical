@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-center" *ngIf="!(isApprove) && !(value)">
-<button mdbBtn color="primary" type="button" disabled>
+<button mdbBtn color="primary" type="button" [disabled] = "reScanButtonDisable || device" (click)="writeValue()">
   <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
   {{statusText}}
 </button>
