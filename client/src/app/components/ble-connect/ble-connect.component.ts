@@ -69,7 +69,6 @@ export class BleConnectComponent implements OnInit {
   }
 
   updateValue(value: any) {
-    console.log(value);
     this.value = value;
     this.credentialData = this.helperService.getCredentialObject(this.value);
   

@@ -98,7 +98,9 @@ export class BluetoothService {
 
         // 1) call the discover method will trigger the discovery process (by the browser)
         .discover$({
-          acceptAllDevices: true,
+          filters : [{
+            namePrefix: 'TrustId'
+          }],
           optionalServices: [this._config.service]
         })
         .pipe(
